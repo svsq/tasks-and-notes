@@ -1,11 +1,16 @@
 package tk.svsq.tasksandnotes;
 
-import android.support.v4.app.FragmentManager;
+import android.support.design.widget.TabLayout;
+import android.app.FragmentManager;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import tk.svsq.tasksandnotes.adapters.TabAdapter;
+import tk.svsq.tasksandnotes.fragments.SplashFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +26,11 @@ public class MainActivity extends AppCompatActivity {
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
 
-        fragmentManager = getSupportFragmentManager();
+        fragmentManager = getFragmentManager();
 
         runSplash();
+
+        setUI();
     }
 
     public void runSplash() {
@@ -64,5 +71,32 @@ public class MainActivity extends AppCompatActivity {
             toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
+
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.current_task));
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task));
+
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 2);
+
+        viewPager.setAdapter(tabAdapter);
+        viewPager.addOnAdapterChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 }

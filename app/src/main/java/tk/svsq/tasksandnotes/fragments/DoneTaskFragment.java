@@ -1,20 +1,22 @@
-package tk.svsq.tasksandnotes;
+package tk.svsq.tasksandnotes.fragments;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import tk.svsq.tasksandnotes.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CurrentTaskFragment extends Fragment {
+public class DoneTaskFragment extends Fragment {
 
 
-    public CurrentTaskFragment() {
+    public DoneTaskFragment() {
         // Required empty public constructor
     }
 
@@ -23,7 +25,7 @@ public class CurrentTaskFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_task, container, false);
+        return inflater.inflate(R.layout.fragment_done_task, container, false);
     }
 
 }

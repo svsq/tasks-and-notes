@@ -1,14 +1,16 @@
-package tk.svsq.tasksandnotes;
+package tk.svsq.tasksandnotes.fragments;
 
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.concurrent.TimeUnit;
+
+import tk.svsq.tasksandnotes.R;
 
 
 /**
