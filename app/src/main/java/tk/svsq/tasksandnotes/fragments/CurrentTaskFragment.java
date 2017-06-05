@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import tk.svsq.tasksandnotes.R;
+import tk.svsq.tasksandnotes.adapters.CurrentTaskAdapter;
+import tk.svsq.tasksandnotes.model.ModelTask;
 
 
 /**
@@ -19,6 +21,8 @@ public class CurrentTaskFragment extends Fragment {
 
     private RecyclerView recyclerViewCurrentTasks;
     private RecyclerView.LayoutManager layoutManager;
+
+    private CurrentTaskAdapter adapter;
 
 
     public CurrentTaskFragment() {
@@ -38,7 +42,30 @@ public class CurrentTaskFragment extends Fragment {
 
         recyclerViewCurrentTasks.setLayoutManager(layoutManager);
 
+        adapter = new CurrentTaskAdapter();
+        recyclerViewCurrentTasks.setAdapter(adapter);
+
         return rootView;
+    }
+
+    public void addTask(ModelTask newTask)  {
+        int position = -1;
+
+        for(int i = 0; i < adapter.getItemCount(); i++)  {
+            if(adapter.getItem(i).isTask())  {
+                ModelTask task = (ModelTask) adapter.getItem(i);
+                if (newTask.getDate() < task.getDate())  {
+                    position = i;
+                    break;
+                }
+            }
+        }
+
+        if (position != -1)  {
+            adapter.addItem(position, newTask);
+        } else {
+            adapter.addItem(newTask);
+        }
     }
 
 }

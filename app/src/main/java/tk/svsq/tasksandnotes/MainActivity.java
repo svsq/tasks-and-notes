@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import tk.svsq.tasksandnotes.adapters.TabAdapter;
 import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
+import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
+import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
 import tk.svsq.tasksandnotes.fragments.SplashFragment;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
@@ -23,6 +25,11 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
     FragmentManager fragmentManager;
 
     PreferenceHelper preferenceHelper;
+
+    TabAdapter tabAdapter;
+
+    CurrentTaskFragment currentTaskFragment;
+    DoneTaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,10 +77,10 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
 
     }
 
-    public void setUI()  {
+    public void setUI() {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null)  {
+        if (toolbar != null) {
             toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             setSupportActionBar(toolbar);
         }
@@ -83,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
         tabLayout.addTab(tabLayout.newTab().setText(R.string.done_task));
 
         final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        TabAdapter tabAdapter = new TabAdapter(fragmentManager, 2);
+        tabAdapter = new TabAdapter(fragmentManager, 2);
 
         viewPager.setAdapter(tabAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -105,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
             }
         });
 
+        currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(tabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
+        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(tabAdapter.DONE_TASK_FRAGMENT_POSITION);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
 
     @Override
     public void onTaskAdded(ModelTask newTask) {
-        Toast.makeText(this, "Task added", Toast.LENGTH_LONG).show();
+        currentTaskFragment.addTask(newTask);
     }
 
     @Override
