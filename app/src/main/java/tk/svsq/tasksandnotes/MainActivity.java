@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
             }
         });
 
-        currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(tabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
-        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(tabAdapter.DONE_TASK_FRAGMENT_POSITION);
+        currentTaskFragment = (CurrentTaskFragment) tabAdapter.getItem(TabAdapter.CURRENT_TASK_FRAGMENT_POSITION);
+        doneTaskFragment = (DoneTaskFragment) tabAdapter.getItem(TabAdapter.DONE_TASK_FRAGMENT_POSITION);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
