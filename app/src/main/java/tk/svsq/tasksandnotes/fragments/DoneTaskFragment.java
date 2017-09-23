@@ -15,11 +15,7 @@ import tk.svsq.tasksandnotes.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DoneTaskFragment extends Fragment {
-
-    RecyclerView recyclerViewDoneTasks;
-    RecyclerView.LayoutManager layoutManager;
-
+public class DoneTaskFragment extends TaskFragment {
 
     public DoneTaskFragment() {
         // Required empty public constructor
@@ -32,11 +28,11 @@ public class DoneTaskFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_done_task, container, false);
 
-        recyclerViewDoneTasks = (RecyclerView) rootView.findViewById(R.id.recyclerViewDoneTask);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerViewDoneTask);
 
         layoutManager = new LinearLayoutManager(getActivity());
 
-        recyclerViewDoneTasks.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
 
         return rootView;
     }

@@ -19,7 +19,7 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 import tk.svsq.tasksandnotes.R;
-import tk.svsq.tasksandnotes.fragments.Utils;
+import tk.svsq.tasksandnotes.Utils;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 /**

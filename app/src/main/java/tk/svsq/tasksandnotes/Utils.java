@@ -1,4 +1,4 @@
-package tk.svsq.tasksandnotes.fragments;
+package tk.svsq.tasksandnotes;
 
 import java.text.SimpleDateFormat;
 
