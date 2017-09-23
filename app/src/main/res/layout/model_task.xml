@@ -13,8 +13,7 @@
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_toRightOf="@+id/tvTaskDate"
-        android:layout_alignParentLeft="true"
-        android:text="Title"/>
+        android:layout_alignParentLeft="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,7 +24,6 @@
         android:textColor="@color/secondary_text_default_material_light"
         android:layout_alignParentRight="true"
         android:layout_marginTop="19dp"
-        android:layout_margin="@dimen/standard_margin"
-        android:text="Date"/>
+        android:layout_margin="@dimen/standard_margin" />
 
 </RelativeLayout>
