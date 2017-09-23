@@ -21,7 +21,7 @@ public class ModelTask implements Item{
 
     @Override
     public boolean isTask() {
-        return false;    }
+        return true;    }
 
     public String getTitle() {
         return title;

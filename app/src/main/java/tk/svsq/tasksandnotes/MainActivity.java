@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
             return true;
         }
         return super.onOptionsItemSelected(item);
-
     }
 
     public void setUI() {

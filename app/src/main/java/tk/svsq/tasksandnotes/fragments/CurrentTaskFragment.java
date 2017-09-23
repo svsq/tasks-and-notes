@@ -67,5 +67,4 @@ public class CurrentTaskFragment extends Fragment {
             adapter.addItem(newTask);
         }
     }
-
 }
