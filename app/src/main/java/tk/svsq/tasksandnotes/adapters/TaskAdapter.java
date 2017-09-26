@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.Item;
 
@@ -52,11 +53,13 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         protected TextView title;
         protected TextView date;
+        protected CircleImageView priority;
 
-        public TaskViewHolder(View itemView, TextView title, TextView date) {
+        public TaskViewHolder(View itemView, TextView title, TextView date, CircleImageView priority) {
             super(itemView);
             this.title = title;
             this.date = date;
+            this.priority = priority;
         }
     }
 

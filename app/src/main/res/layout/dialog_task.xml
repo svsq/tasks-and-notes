@@ -59,6 +59,14 @@
                 android:cursorVisible="false"/>
 
         </android.support.design.widget.TextInputLayout>
+        
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spDialogTaskDate"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 
