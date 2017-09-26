@@ -12,10 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 import tk.svsq.tasksandnotes.R;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SplashFragment extends Fragment {
 
 

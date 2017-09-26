@@ -7,10 +7,6 @@ import android.support.v13.app.FragmentStatePagerAdapter;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
 
-/**
- * Created by svsq on 01.06.2017.
- */
-
 public class TabAdapter extends FragmentStatePagerAdapter {
 
     private int numberOfTabs;
