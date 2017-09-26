@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-            toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+            //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+            toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
             setSupportActionBar(toolbar);
         }
 

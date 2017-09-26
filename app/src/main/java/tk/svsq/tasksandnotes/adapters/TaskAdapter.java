@@ -11,15 +11,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.Item;
 
-/**
- * Created by svsq on 23.09.2017.
- */
-
 public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Item> items;
-    TaskFragment taskFragment;
+    private TaskFragment taskFragment;
 
-    public TaskAdapter(TaskFragment taskFragment) {
+    TaskAdapter(TaskFragment taskFragment) {
         this.taskFragment = taskFragment;
         items = new ArrayList<>();
     }
@@ -38,7 +34,7 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
         notifyItemInserted(location);
     }
 
-    public void removeItem(int location) {
+    void removeItem(int location) {
         if(location >= 0 && location <= getItemCount() -1) {
             items.remove(location);
             notifyItemRemoved(location);
@@ -50,13 +46,13 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
         return items.size();
     }
 
-    protected class TaskViewHolder extends RecyclerView.ViewHolder  {
+    class TaskViewHolder extends RecyclerView.ViewHolder  {
 
-        protected TextView title;
-        protected TextView date;
-        protected CircleImageView priority;
+        TextView title;
+        TextView date;
+        CircleImageView priority;
 
-        public TaskViewHolder(View itemView, TextView title, TextView date, CircleImageView priority) {
+        TaskViewHolder(View itemView, TextView title, TextView date, CircleImageView priority) {
             super(itemView);
             this.title = title;
             this.date = date;
@@ -64,7 +60,7 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
     }
 
-    public TaskFragment getTaskFragment() {
+    TaskFragment getTaskFragment() {
         return taskFragment;
     }
 }

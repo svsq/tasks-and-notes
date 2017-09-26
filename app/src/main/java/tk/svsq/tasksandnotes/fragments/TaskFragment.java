@@ -6,9 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import tk.svsq.tasksandnotes.adapters.TaskAdapter;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
-/**
- * Created by svsq on 23.09.2017.
- */
 
 public abstract class TaskFragment extends Fragment{
     protected RecyclerView recyclerView;

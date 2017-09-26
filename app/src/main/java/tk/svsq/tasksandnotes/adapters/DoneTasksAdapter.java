@@ -3,7 +3,9 @@ package tk.svsq.tasksandnotes.adapters;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.res.Resources;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +18,6 @@ import tk.svsq.tasksandnotes.Utils;
 import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.Item;
 import tk.svsq.tasksandnotes.model.ModelTask;
-
-/**
- * Created by svsq on 27.09.2017.
- */
 
 public class DoneTasksAdapter extends TaskAdapter {
     public DoneTasksAdapter(TaskFragment taskFragment) {
@@ -39,6 +37,11 @@ public class DoneTasksAdapter extends TaskAdapter {
 
     }
 
+    private int getContextColor(Context context, int color) {
+        return ContextCompat.getColor(context, color);
+    }
+
+    @SuppressLint("PrivateResource")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Item item = items.get(position);
@@ -49,7 +52,6 @@ public class DoneTasksAdapter extends TaskAdapter {
             final TaskViewHolder taskViewHolder = (TaskViewHolder) viewHolder;
 
             final View itemView = taskViewHolder.itemView;
-            final Resources resources = itemView.getResources();
 
             taskViewHolder.title.setText(task.getTitle());
             if (task.getDate() != 0) {
@@ -60,24 +62,26 @@ public class DoneTasksAdapter extends TaskAdapter {
 
             itemView.setVisibility(View.VISIBLE);
 
-            itemView.setBackgroundColor(resources.getColor(R.color.gray_200));
-            //itemView.setBackgroundColor(ContextCompat.getColor(R.color.gray_50));
+            final Context context = itemView.getContext();
 
-            taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_disabled_material_light));
-            taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_disabled_material_light));
-            taskViewHolder.priority.setColorFilter(resources.getColor(task.getPriorityColor()));
+            itemView.setBackgroundColor(getContextColor(context, R.color.gray_50));
+
+            taskViewHolder.title.setTextColor(getContextColor(context, R.color.primary_text_disabled_material_light));
+            taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_disabled_material_light));
+            taskViewHolder.priority.setColorFilter(getContextColor(context, task.getPriorityColor()));
             taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_48dp);
 
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("PrivateResource")
                 @Override
                 public void onClick(View v) {
                     task.setStatus(ModelTask.STATUS_CURRENT);
 
-                    itemView.setBackgroundColor(resources.getColor(R.color.gray_50));
+                    itemView.setBackgroundColor(getContextColor(context, R.color.gray_50));
 
-                    taskViewHolder.title.setTextColor(resources.getColor(R.color.primary_text_default_material_light));
-                    taskViewHolder.date.setTextColor(resources.getColor(R.color.secondary_text_default_material_light));
-                    taskViewHolder.priority.setColorFilter(resources.getColor(task.getPriorityColor()));
+                    taskViewHolder.title.setTextColor(getContextColor(context, R.color.primary_text_default_material_light));
+                    taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_default_material_light));
+                    taskViewHolder.priority.setColorFilter(getContextColor(context, task.getPriorityColor()));
 
                     ObjectAnimator flipIn = ObjectAnimator.ofFloat(taskViewHolder.priority, "rotationY", 180f, 0f);
                     taskViewHolder.priority.setImageResource(R.drawable.ic_checkbox_blank_circle_white_48dp);

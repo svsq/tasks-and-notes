@@ -1,9 +1,8 @@
 package tk.svsq.tasksandnotes.fragments;
 
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,10 +13,6 @@ import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.adapters.DoneTasksAdapter;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class DoneTaskFragment extends TaskFragment {
 
     public DoneTaskFragment() {
@@ -31,12 +26,12 @@ public class DoneTaskFragment extends TaskFragment {
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
+    public void onAttach(Context context) {
+        super.onAttach(context);
         try {
-            onTaskRestoreListener = (OnTaskRestoreListener) activity;
+            onTaskRestoreListener = (OnTaskRestoreListener) context;
         } catch(ClassCastException e) {
-            throw new ClassCastException(activity.toString()
+            throw new ClassCastException(context.toString()
                     + " must implement OnTaskRestoreListener");
         }
     }
