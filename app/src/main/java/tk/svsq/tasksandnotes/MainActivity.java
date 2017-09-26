@@ -18,9 +18,12 @@ import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
 import tk.svsq.tasksandnotes.fragments.SplashFragment;
+import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
-public class MainActivity extends AppCompatActivity implements AddingTaskDialogFragment.AddingTaskListener {
+public class MainActivity extends AppCompatActivity
+        implements AddingTaskDialogFragment.AddingTaskListener,
+        CurrentTaskFragment.OnTaskDoneListener, DoneTaskFragment.OnTaskRestoreListener {
 
     FragmentManager fragmentManager;
 
@@ -28,8 +31,8 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
 
     TabAdapter tabAdapter;
 
-    CurrentTaskFragment currentTaskFragment;
-    DoneTaskFragment doneTaskFragment;
+    TaskFragment currentTaskFragment;
+    TaskFragment doneTaskFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,5 +135,15 @@ public class MainActivity extends AppCompatActivity implements AddingTaskDialogF
     @Override
     public void onTaskAddingCancel() {
         Toast.makeText(this, "Cancel adding task", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onTaskDone(ModelTask task) {
+        doneTaskFragment.addTask(task);
+    }
+
+    @Override
+    public void onTaskRestore(ModelTask task) {
+        currentTaskFragment.addTask(task);
     }
 }

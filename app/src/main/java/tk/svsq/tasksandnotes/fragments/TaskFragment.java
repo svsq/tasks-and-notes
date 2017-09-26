@@ -3,7 +3,7 @@ package tk.svsq.tasksandnotes.fragments;
 import android.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 
-import tk.svsq.tasksandnotes.adapters.CurrentTaskAdapter;
+import tk.svsq.tasksandnotes.adapters.TaskAdapter;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 /**
@@ -14,7 +14,7 @@ public abstract class TaskFragment extends Fragment{
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
 
-    protected CurrentTaskAdapter adapter;
+    protected TaskAdapter adapter;
 
     public void addTask(ModelTask newTask)  {
         int position = -1;
@@ -35,4 +35,6 @@ public abstract class TaskFragment extends Fragment{
             adapter.addItem(newTask);
         }
     }
+
+    public abstract void moveTask(ModelTask task);
 }
