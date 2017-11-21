@@ -30,7 +30,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        switch (viewType)  {
+        switch (viewType) {
             case TYPE_TASK:
                 View v = LayoutInflater.from(viewGroup.getContext())
                         .inflate(R.layout.model_task, viewGroup, false);
@@ -53,7 +53,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Item item = items.get(position);
 
-        if(item.isTask())  {
+        if (item.isTask()) {
             viewHolder.itemView.setEnabled(true);
             final ModelTask task = (ModelTask) item;
             final TaskViewHolder taskViewHolder = (TaskViewHolder) viewHolder;
@@ -61,7 +61,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
             final View itemView = taskViewHolder.itemView;
 
             taskViewHolder.title.setText(task.getTitle());
-            if (task.getDate() != 0 )  {
+            if (task.getDate() != 0) {
                 taskViewHolder.date.setText(Utils.getFullDate(task.getDate()));
             } else {
                 taskViewHolder.date.setText(null);
@@ -94,7 +94,12 @@ public class CurrentTaskAdapter extends TaskAdapter {
                     flipIn.addListener(new Animator.AnimatorListener() {
                         @Override
                         public void onAnimationStart(Animator animation) {
-                            if(task.getStatus() == ModelTask.STATUS_DONE) {
+
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animator animation) {
+                            if (task.getStatus() == ModelTask.STATUS_DONE) {
                                 taskViewHolder.priority.setImageResource(R.drawable.ic_check_circle_white_48dp);
 
                                 ObjectAnimator translationX = ObjectAnimator.ofFloat(itemView,
@@ -134,11 +139,6 @@ public class CurrentTaskAdapter extends TaskAdapter {
                         }
 
                         @Override
-                        public void onAnimationEnd(Animator animation) {
-
-                        }
-
-                        @Override
                         public void onAnimationCancel(Animator animation) {
 
                         }
@@ -159,7 +159,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if (getItem(position).isTask())  {
+        if (getItem(position).isTask()) {
             return TYPE_TASK;
         } else {
             return TYPE_SEPARATOR;
