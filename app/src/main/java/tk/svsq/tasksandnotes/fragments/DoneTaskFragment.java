@@ -9,8 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.adapters.DoneTasksAdapter;
+import tk.svsq.tasksandnotes.database.DBHelper;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 public class DoneTaskFragment extends TaskFragment {
@@ -52,6 +56,17 @@ public class DoneTaskFragment extends TaskFragment {
         recyclerView.setAdapter(adapter);
 
         return rootView;
+    }
+
+    @Override
+    public void addTaskFromDB() {
+        List<ModelTask> tasks = new ArrayList<>();
+        tasks.addAll(activity.dbHelper.query().getTasks(DBHelper.SELECTION_STATUS,
+                new String[]{Integer.toString(ModelTask.STATUS_DONE)}, DBHelper.TASK_DATE_COLUMN));
+
+        for (int i = 0; i < tasks.size(); i++) {
+            addTask(tasks.get(i), false);
+        }
     }
 
     @Override
