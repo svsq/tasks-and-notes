@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import tk.svsq.tasksandnotes.adapters.TabAdapter;
+import tk.svsq.tasksandnotes.database.DBHelper;
 import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
@@ -35,6 +36,8 @@ public class MainActivity extends AppCompatActivity
     TaskFragment currentTaskFragment;
     TaskFragment doneTaskFragment;
 
+    public DBHelper dbHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity
 
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+
+        dbHelper = new DBHelper(getApplicationContext());
 
         fragmentManager = getFragmentManager();
 
@@ -131,7 +136,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onTaskAdded(ModelTask newTask) {
-        currentTaskFragment.addTask(newTask);
+        currentTaskFragment.addTask(newTask, true);
     }
 
     @Override
@@ -141,11 +146,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onTaskDone(ModelTask task) {
-        doneTaskFragment.addTask(task);
+        doneTaskFragment.addTask(task, false);
     }
 
     @Override
     public void onTaskRestore(ModelTask task) {
-        currentTaskFragment.addTask(task);
+        currentTaskFragment.addTask(task, false);
     }
 }
