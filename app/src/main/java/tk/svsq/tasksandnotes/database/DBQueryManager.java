@@ -25,7 +25,7 @@ public class DBQueryManager {
 
         Cursor cursor = database.query(DBHelper.TASKS_TABLE, null, selection, selectionArgs, null, null, orderBy);
 
-        if (cursor.moveToNext()) {
+        if (cursor.moveToFirst()) {
             do {
                 String title = cursor.getString(cursor.getColumnIndex(DBHelper.TASK_TITLE_COLUMN));
                 long date = cursor.getLong(cursor.getColumnIndex(DBHelper.TASK_DATE_COLUMN));
