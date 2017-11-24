@@ -69,6 +69,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
             }
 
             itemView.setVisibility(View.VISIBLE);
+            taskViewHolder.priority.setEnabled(true);
 
             final Context context = itemView.getContext();
 
@@ -98,6 +99,7 @@ public class CurrentTaskAdapter extends TaskAdapter {
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    taskViewHolder.priority.setEnabled(false);
                     task.setStatus(ModelTask.STATUS_DONE);
                     getTaskFragment().activity.dbHelper.update().status(task.getTimeStamp(), ModelTask.STATUS_DONE);
 
