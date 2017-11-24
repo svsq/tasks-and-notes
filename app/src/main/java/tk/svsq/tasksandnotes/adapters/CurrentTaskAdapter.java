@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -77,6 +78,22 @@ public class CurrentTaskAdapter extends TaskAdapter {
             taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_default_material_light));
             taskViewHolder.priority.setColorFilter(getContextColor(context, task.getPriorityColor()));
             taskViewHolder.priority.setImageResource(R.drawable.ic_checkbox_blank_circle_white_48dp);
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            getTaskFragment().removeTaskDialog(taskViewHolder.getLayoutPosition());
+                        }
+                    }, 500);
+
+                    return true;
+                }
+            });
 
             taskViewHolder.priority.setOnClickListener(new View.OnClickListener() {
                 @Override
