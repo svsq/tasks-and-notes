@@ -19,7 +19,7 @@ public class Utils {
     }
 
     public static String getFullDate(long date)  {
-        SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd.M.yy  HH:mm");
+        SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd.M.yy HH:mm");
         return fullDateFormat.format(date);
     }
 }

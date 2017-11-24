@@ -62,10 +62,9 @@ public class DoneTasksAdapter extends TaskAdapter {
             }
 
             itemView.setVisibility(View.VISIBLE);
+            taskViewHolder.priority.setEnabled(true);
 
             final Context context = itemView.getContext();
-
-            itemView.setBackgroundColor(getContextColor(context, R.color.gray_50));
 
             taskViewHolder.title.setTextColor(getContextColor(context, R.color.primary_text_disabled_material_light));
             taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_disabled_material_light));
@@ -92,10 +91,9 @@ public class DoneTasksAdapter extends TaskAdapter {
                 @SuppressLint("PrivateResource")
                 @Override
                 public void onClick(View v) {
+                    taskViewHolder.priority.setEnabled(false);
                     task.setStatus(ModelTask.STATUS_CURRENT);
                     getTaskFragment().activity.dbHelper.update().status(task.getTimeStamp(), ModelTask.STATUS_CURRENT);
-
-                    itemView.setBackgroundColor(getContextColor(context, R.color.gray_50));
 
                     taskViewHolder.title.setTextColor(getContextColor(context, R.color.primary_text_default_material_light));
                     taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_default_material_light));
