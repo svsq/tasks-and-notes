@@ -23,6 +23,7 @@ import java.util.Calendar;
 
 import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.Utils;
+import tk.svsq.tasksandnotes.alarm.AlarmHelper;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 /**
@@ -161,8 +162,12 @@ public class AddingTaskDialogFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 task.setTitle(etTitle.getText().toString());
-                if(etDate.length() != 0 || etTime.length() != 0)  {
+                task.setStatus(ModelTask.STATUS_CURRENT);
+                if (etDate.length() != 0 || etTime.length() != 0) {
                     task.setDate(calendar.getTimeInMillis());
+
+                    AlarmHelper alarmHelper = AlarmHelper.getInstance();
+                    alarmHelper.setAlarm(task);
                 }
                 task.setStatus(ModelTask.STATUS_CURRENT);
                 addingTaskListener.onTaskAdded(task);

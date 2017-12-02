@@ -12,11 +12,12 @@ import android.view.View;
 import tk.svsq.tasksandnotes.MainActivity;
 import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.adapters.TaskAdapter;
+import tk.svsq.tasksandnotes.alarm.AlarmHelper;
 import tk.svsq.tasksandnotes.model.Item;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 
-public abstract class TaskFragment extends Fragment{
+public abstract class TaskFragment extends Fragment {
     protected RecyclerView recyclerView;
     protected RecyclerView.LayoutManager layoutManager;
 
@@ -24,26 +25,28 @@ public abstract class TaskFragment extends Fragment{
 
     public MainActivity activity;
 
-    public void addTask(ModelTask newTask, boolean saveToDB)  {
+    public AlarmHelper alarmHelper;
+
+    public void addTask(ModelTask newTask, boolean saveToDB) {
         int position = -1;
 
-        for(int i = 0; i < adapter.getItemCount(); i++)  {
-            if(adapter.getItem(i).isTask())  {
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            if (adapter.getItem(i).isTask()) {
                 ModelTask task = (ModelTask) adapter.getItem(i);
-                if (newTask.getDate() < task.getDate())  {
+                if (newTask.getDate() < task.getDate()) {
                     position = i;
                     break;
                 }
             }
         }
 
-        if (position != -1)  {
+        if (position != -1) {
             adapter.addItem(position, newTask);
         } else {
             adapter.addItem(newTask);
         }
 
-        if(saveToDB) {
+        if (saveToDB) {
             activity.dbHelper.saveTask(newTask);
         }
     }
@@ -55,7 +58,7 @@ public abstract class TaskFragment extends Fragment{
 
         Item item = adapter.getItem(location);
 
-        if(item.isTask()) {
+        if (item.isTask()) {
             ModelTask removingTask = (ModelTask) item;
 
             final long timeStamp = removingTask.getTimeStamp();
@@ -83,7 +86,8 @@ public abstract class TaskFragment extends Fragment{
 
                         @Override
                         public void onViewDetachedFromWindow(View view) {
-                            if(isRemoved[0]) {
+                            if (isRemoved[0]) {
+                                alarmHelper.removeAlarm(timeStamp);
                                 activity.dbHelper.removeTask(timeStamp);
                             }
                         }
@@ -114,9 +118,11 @@ public abstract class TaskFragment extends Fragment{
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(getActivity() != null) {
+        if (getActivity() != null) {
             activity = (MainActivity) getActivity();
         }
+
+        alarmHelper = AlarmHelper.getInstance();
 
         addTaskFromDB();
     }
