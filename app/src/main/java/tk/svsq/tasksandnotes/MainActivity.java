@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import tk.svsq.tasksandnotes.adapters.TabAdapter;
+import tk.svsq.tasksandnotes.alarm.AlarmHelper;
 import tk.svsq.tasksandnotes.database.DBHelper;
 import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity
 
         PreferenceHelper.getInstance().init(getApplicationContext());
         preferenceHelper = PreferenceHelper.getInstance();
+
+        AlarmHelper.getInstance().init(getApplicationContext());
 
         dbHelper = new DBHelper(getApplicationContext());
 
