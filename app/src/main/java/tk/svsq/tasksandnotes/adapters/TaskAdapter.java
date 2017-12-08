@@ -114,7 +114,7 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
 
         protected TextView type;
 
-        public SeparatorViewHolder(View itemView) {
+        public SeparatorViewHolder(View itemView, TextView type) {
             super(itemView);
             this.type = type;
         }
