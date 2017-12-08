@@ -1,6 +1,7 @@
 package tk.svsq.tasksandnotes.fragments;
 
 import android.app.AlertDialog;
+import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import tk.svsq.tasksandnotes.MainActivity;
 import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.adapters.TaskAdapter;
 import tk.svsq.tasksandnotes.alarm.AlarmHelper;
+import tk.svsq.tasksandnotes.dialog.EditTaskDialogFragment;
 import tk.svsq.tasksandnotes.model.Item;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
@@ -28,6 +30,10 @@ public abstract class TaskFragment extends Fragment {
     public AlarmHelper alarmHelper;
 
     public abstract void addTask(ModelTask newTask, boolean saveToDB);
+
+    public void updateTask(ModelTask task) {
+        adapter.updateTask(task);
+    }
 
 
     public void removeTaskDialog(final int location) {
@@ -87,6 +93,11 @@ public abstract class TaskFragment extends Fragment {
         }
 
         dialogBuilder.show();
+    }
+
+    public void showTaskEditDialog(ModelTask task) {
+        DialogFragment editingTaskDialog = EditTaskDialogFragment.newInstance(task);
+        editingTaskDialog.show(getActivity().getFragmentManager(), "EditTaskDialogFragment");
     }
 
     public abstract void findTasks(String title);
