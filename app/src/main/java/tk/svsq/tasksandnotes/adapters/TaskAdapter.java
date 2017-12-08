@@ -11,6 +11,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.Item;
 import tk.svsq.tasksandnotes.model.ModelSeparator;
+import tk.svsq.tasksandnotes.model.ModelTask;
 
 public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<Item> items;
@@ -39,6 +40,18 @@ public abstract class TaskAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void addItem(int location, Item item)  {
         items.add(location, item);
         notifyItemInserted(location);
+    }
+
+    public void updateTask(ModelTask newTask) {
+        for (int i = 0; i < getItemCount(); i++) {
+            if(getItem(i).isTask()) {
+                ModelTask task = (ModelTask) getItem(i);
+                if(newTask.getTimeStamp() == task.getTimeStamp()) {
+                    removeItem(i);
+                    getTaskFragment().addTask(newTask, false);
+                }
+            }
+        }
     }
 
     public void removeItem(int location) {

@@ -12,6 +12,7 @@
     <string name="fragment_done_tasks">Done tasks</string>
 
     <string name="adding_task_dialog_title">Adding task</string>
+    <string name="editing_task_dialog_title">Editing task</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_error_empty_title">Please enter the title</string>

@@ -19,6 +19,7 @@ import tk.svsq.tasksandnotes.adapters.TabAdapter;
 import tk.svsq.tasksandnotes.alarm.AlarmHelper;
 import tk.svsq.tasksandnotes.database.DBHelper;
 import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
+import tk.svsq.tasksandnotes.dialog.EditTaskDialogFragment;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
 import tk.svsq.tasksandnotes.fragments.SplashFragment;
@@ -27,7 +28,8 @@ import tk.svsq.tasksandnotes.model.ModelTask;
 
 public class MainActivity extends AppCompatActivity
         implements AddingTaskDialogFragment.AddingTaskListener,
-        CurrentTaskFragment.OnTaskDoneListener, DoneTaskFragment.OnTaskRestoreListener {
+        CurrentTaskFragment.OnTaskDoneListener, DoneTaskFragment.OnTaskRestoreListener,
+        EditTaskDialogFragment.EditingTaskListener{
 
     FragmentManager fragmentManager;
 
@@ -185,5 +187,11 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTaskRestore(ModelTask task) {
         currentTaskFragment.addTask(task, false);
+    }
+
+    @Override
+    public void onTaskEdited(ModelTask updatedTask) {
+        currentTaskFragment.updateTask(updatedTask);
+        dbHelper.update().task(updatedTask);
     }
 }
