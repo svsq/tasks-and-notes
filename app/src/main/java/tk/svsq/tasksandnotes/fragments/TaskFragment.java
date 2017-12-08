@@ -27,29 +27,8 @@ public abstract class TaskFragment extends Fragment {
 
     public AlarmHelper alarmHelper;
 
-    public void addTask(ModelTask newTask, boolean saveToDB) {
-        int position = -1;
+    public abstract void addTask(ModelTask newTask, boolean saveToDB);
 
-        for (int i = 0; i < adapter.getItemCount(); i++) {
-            if (adapter.getItem(i).isTask()) {
-                ModelTask task = (ModelTask) adapter.getItem(i);
-                if (newTask.getDate() < task.getDate()) {
-                    position = i;
-                    break;
-                }
-            }
-        }
-
-        if (position != -1) {
-            adapter.addItem(position, newTask);
-        } else {
-            adapter.addItem(newTask);
-        }
-
-        if (saveToDB) {
-            activity.dbHelper.saveTask(newTask);
-        }
-    }
 
     public void removeTaskDialog(final int location) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder((getActivity()));

@@ -25,7 +25,7 @@ public class DoneTaskFragment extends TaskFragment {
 
     OnTaskRestoreListener onTaskRestoreListener;
 
-    public interface OnTaskRestoreListener  {
+    public interface OnTaskRestoreListener {
         void onTaskRestore(ModelTask task);
     }
 
@@ -34,7 +34,7 @@ public class DoneTaskFragment extends TaskFragment {
         super.onAttach(context);
         try {
             onTaskRestoreListener = (OnTaskRestoreListener) context;
-        } catch(ClassCastException e) {
+        } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()
                     + " must implement OnTaskRestoreListener");
         }
@@ -59,13 +59,38 @@ public class DoneTaskFragment extends TaskFragment {
     }
 
     @Override
+    public void addTask(ModelTask newTask, boolean saveToDB) {
+        int position = -1;
+
+        for (int i = 0; i < adapter.getItemCount(); i++) {
+            if (adapter.getItem(i).isTask()) {
+                ModelTask task = (ModelTask) adapter.getItem(i);
+                if (newTask.getDate() < task.getDate()) {
+                    position = i;
+                    break;
+                }
+            }
+        }
+
+        if (position != -1) {
+            adapter.addItem(position, newTask);
+        } else {
+            adapter.addItem(newTask);
+        }
+
+        if (saveToDB) {
+            activity.dbHelper.saveTask(newTask);
+        }
+    }
+
+    @Override
     public void findTasks(String title) {
         adapter.removeAllItems();
         List<ModelTask> tasks = new ArrayList<>();
         tasks.addAll(activity.dbHelper.query().getTasks(DBHelper.SELECTION_LIKE_TITLE + " AND "
                         + DBHelper.SELECTION_STATUS + " OR " + DBHelper.SELECTION_STATUS,
-                        new String[]{"%" + title + "%", Integer.toString(ModelTask.STATUS_DONE)},
-                        DBHelper.TASK_DATE_COLUMN));
+                new String[]{"%" + title + "%", Integer.toString(ModelTask.STATUS_DONE)},
+                DBHelper.TASK_DATE_COLUMN));
 
         for (int i = 0; i < tasks.size(); i++) {
             addTask(tasks.get(i), false);
@@ -86,7 +111,7 @@ public class DoneTaskFragment extends TaskFragment {
 
     @Override
     public void moveTask(ModelTask task) {
-        if(task.getDate() != 0) {
+        if (task.getDate() != 0) {
             alarmHelper.setAlarm(task);
         }
         onTaskRestoreListener.onTaskRestore(task);

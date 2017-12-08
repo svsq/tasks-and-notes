@@ -5,6 +5,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -13,11 +14,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Calendar;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 import tk.svsq.tasksandnotes.R;
 import tk.svsq.tasksandnotes.Utils;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.model.Item;
+import tk.svsq.tasksandnotes.model.ModelSeparator;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
 public class CurrentTaskAdapter extends TaskAdapter {
@@ -40,6 +44,12 @@ public class CurrentTaskAdapter extends TaskAdapter {
                 CircleImageView priority = (CircleImageView) v.findViewById(R.id.cvTaskPriority);
 
                 return new TaskViewHolder(v, title, date, priority);
+            case TYPE_SEPARATOR:
+                View separator = LayoutInflater.from(viewGroup.getContext())
+                        .inflate(R.layout.model_separator, viewGroup, false);
+                TextView typeSeparator = (TextView) separator.findViewById(R.id.tvSeparatorName);
+
+                return new SeparatorViewHolder(separator, typeSeparator);
             default:
                 return null;
         }
@@ -53,6 +63,8 @@ public class CurrentTaskAdapter extends TaskAdapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         Item item = items.get(position);
+
+        final Resources resources = viewHolder.itemView.getResources();
 
         if (item.isTask()) {
             viewHolder.itemView.setEnabled(true);
@@ -72,6 +84,12 @@ public class CurrentTaskAdapter extends TaskAdapter {
             taskViewHolder.priority.setEnabled(true);
 
             final Context context = itemView.getContext();
+
+            if (task.getDate() != 0 && task.getDate() < Calendar.getInstance().getTimeInMillis()) {
+                itemView.setBackgroundColor(getContextColor(context, R.color.gray_200));
+            } else {
+                itemView.setBackgroundColor(getContextColor(context, R.color.gray_50));
+            }
 
             taskViewHolder.title.setTextColor(getContextColor(context, R.color.primary_text_default_material_light));
             taskViewHolder.date.setTextColor(getContextColor(context, R.color.secondary_text_default_material_light));
@@ -169,6 +187,11 @@ public class CurrentTaskAdapter extends TaskAdapter {
 
                 }
             });
+        } else {
+            ModelSeparator separator = (ModelSeparator) item;
+            SeparatorViewHolder separatorViewHolder = (SeparatorViewHolder) viewHolder;
+
+            separatorViewHolder.type.setText(resources.getString(separator.getType()));
         }
 
     }
