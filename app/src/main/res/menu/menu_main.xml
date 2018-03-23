@@ -3,9 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_splash"
+        android:id="@+id/action_about"
         android:orderInCategory="100"
-        android:title="@string/do_not_show_splash"
-        app:showAsAction="never"
-        android:checkable="true"/>
+        android:title="@string/menuitem_about"
+        app:showAsAction="always" />
 </menu>

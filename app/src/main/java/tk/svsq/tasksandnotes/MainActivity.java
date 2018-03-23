@@ -22,7 +22,6 @@ import tk.svsq.tasksandnotes.dialog.AddingTaskDialogFragment;
 import tk.svsq.tasksandnotes.dialog.EditTaskDialogFragment;
 import tk.svsq.tasksandnotes.fragments.CurrentTaskFragment;
 import tk.svsq.tasksandnotes.fragments.DoneTaskFragment;
-import tk.svsq.tasksandnotes.fragments.SplashFragment;
 import tk.svsq.tasksandnotes.fragments.TaskFragment;
 import tk.svsq.tasksandnotes.model.ModelTask;
 
@@ -57,12 +56,12 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getFragmentManager();
 
-        runSplash();
+        //runSplash();
 
         setUI();
     }
 
-    public void runSplash() {
+    /*public void runSplash() {
 
         if (!preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE)) {
             SplashFragment splashFragment = new SplashFragment();
@@ -71,24 +70,24 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         }
-    }
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem splashItem = menu.findItem(R.id.action_splash);
-        splashItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE));
+        //MenuItem splashItem = menu.findItem(R.id.action_splash);
+        //splashItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE));
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+        /*int id = item.getItemId();
         if (id == R.id.action_splash) {
             item.setChecked(!item.isChecked());
             preferenceHelper.putBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE, item.isChecked());
             return true;
-        }
+        }*/
         return super.onOptionsItemSelected(item);
     }
 
