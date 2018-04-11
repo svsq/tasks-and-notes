@@ -56,38 +56,19 @@ public class MainActivity extends AppCompatActivity
 
         fragmentManager = getFragmentManager();
 
-        //runSplash();
-
         setUI();
     }
-
-    /*public void runSplash() {
-
-        if (!preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE)) {
-            SplashFragment splashFragment = new SplashFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_frame, splashFragment)
-                    .addToBackStack(null)
-                    .commit();
-        }
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        //MenuItem splashItem = menu.findItem(R.id.action_splash);
-        //splashItem.setChecked(preferenceHelper.getBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE));
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        /*int id = item.getItemId();
-        if (id == R.id.action_splash) {
-            item.setChecked(!item.isChecked());
-            preferenceHelper.putBoolean(PreferenceHelper.SPLASH_IS_INVISIBLE, item.isChecked());
-            return true;
-        }*/
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -107,7 +88,6 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         if (toolbar != null) {
-            //toolbar.setTitleTextColor(getResources().getColor(R.color.white));
             toolbar.setTitleTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
             setSupportActionBar(toolbar);
         }
